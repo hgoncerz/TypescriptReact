@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 interface Props {
   todo: string;
@@ -7,16 +7,25 @@ interface Props {
 }
 
 const InputField: React.FC<Props> = ({ todo, setTodo, handleAdd }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
-    <form className="flex" onSubmit={(e) => handleAdd(e)}>
+    <form
+      className="flex"
+      onSubmit={(e) => {
+        handleAdd(e);
+        inputRef.current?.blur();
+      }}
+    >
       <div className="content-center">
         <input
+          ref={inputRef}
           type="input"
           value={todo}
           onChange={(e) => setTodo(e.target.value)}
           placeholder="Enter a task"
           className="border border-gray-300 px-3 py-2 shadow-sm rounded-lg 
-        focus:ring-indigo-500 my-2 md:w-96 w-56"
+        focus:ring-indigo-500 my-2 sm:w-96 w-52"
         />
         <button
           type="submit"
