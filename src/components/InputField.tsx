@@ -1,11 +1,19 @@
 import React from "react";
 
-const InputField = () => {
+interface Props {
+  todo: string;
+  setTodo: React.Dispatch<React.SetStateAction<string>>;
+  handleAdd: (e: React.FormEvent) => void;
+}
+
+const InputField: React.FC<Props> = ({ todo, setTodo, handleAdd }) => {
   return (
-    <form className="flex">
+    <form className="flex" onSubmit={(e) => handleAdd(e)}>
       <div className="content-center">
         <input
           type="input"
+          value={todo}
+          onChange={(e) => setTodo(e.target.value)}
           placeholder="Enter a task"
           className="border border-gray-300 px-3 py-2 shadow-sm rounded-lg 
         focus:ring-indigo-500 my-2 md:w-96 w-56"
